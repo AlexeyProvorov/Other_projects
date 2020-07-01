@@ -37,3 +37,5 @@ mas[3][0]=4
 print(get_empty_list(mas))
 pretty_print(mas)
 
+
+print('hello main')
