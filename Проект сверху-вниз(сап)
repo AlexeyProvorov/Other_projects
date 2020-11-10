@@ -1,0 +1,93 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "name": "Добро пожаловать в Colaboratory!",
+      "provenance": [],
+      "collapsed_sections": []
+    },
+    "kernelspec": {
+      "display_name": "Python 3",
+      "name": "python3"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "DFLwcwL9wRaH"
+      },
+      "source": [
+        "# Проектирование сверху-вниз\n",
+        "import random\n",
+        "\n",
+        "N, M = (5,10) # размер игрового поля, число мин\n",
+        "\n",
+        "def getTotalMines(PM, i, j):\n",
+        "  n = 0\n",
+        "  for k in range(-1,2):\n",
+        "    for l in range(-1,2):\n",
+        "      x = i + k\n",
+        "      y = j + l\n",
+        "      if x < 0 or x >= N or y <0 or y >=N:\n",
+        "        continue\n",
+        "      if PM[x*N+y] < 0:\n",
+        "        n += 1\n",
+        "  return n\n",
+        "\n",
+        "def createGame(PM):\n",
+        "  '''создание игрового поля, расположение мин и подсчет числа \n",
+        "  мин вокруг клеток'''\n",
+        "  rng = random.Random()\n",
+        "\n",
+        "  n = M\n",
+        "  while n > 0:\n",
+        "    i = rng.randrange(N) # случайное целое о 0 до N\n",
+        "    j = rng.randrange(N)\n",
+        "    if PM[i*N+j] !=0:\n",
+        "      continue\n",
+        "    PM[i*N+j] = -1\n",
+        "    n -= 1\n",
+        "  for i in range(N):\n",
+        "    for j in range(N):\n",
+        "      if P[i*N+j] == 0:\n",
+        "         P[i*N+j] = getTotalMines(PM, i, j)\n",
+        "\n",
+        "def show():\n",
+        "  '''ф-я отображения состояния текущего \n",
+        "   игрового поля'''\n",
+        "  for i in range(N):\n",
+        "    for j in range(N):\n",
+        "      print( str(pole[i*N+j]).rjust(3), end = '')\n",
+        "    print()\n",
+        "\n",
+        "def goPlayer():\n",
+        "  '''Ф-я для ввода координат закрытой клетки игрового поля'''\n",
+        "  pass\n",
+        "\n",
+        "def isFinish():\n",
+        "  '''определение текущего состояния игры'''\n",
+        "\n",
+        "def startGame(): \n",
+        "  '''функция запуска игры. Отображается игровое поле, игрок \n",
+        "  открывает любую закрытую клетку.\n",
+        "  результат проверяется на наличие мины или выйгрышной ситуации\n",
+        "  '''\n",
+        "  P = [-2]*N*N # ономерный список из n*n элементов\n",
+        "  PM = [0]*N*N \n",
+        "  # PM=-1 в клетке мина,P=-2 клетка закрыта\n",
+        "  createGame(PM)\n",
+        "  show(PM)\n",
+        "  while isFinish():\n",
+        "    show()\n",
+        "    goPlayer()\n",
+        "\n",
+        "  startGame()\n",
+        "  print('Game over')"
+      ],
+      "execution_count": 7,
+      "outputs": []
+    }
+  ]
+}
